@@ -11,7 +11,7 @@ const t = initTRPC
 
 const router = t.router({
   greet: t.procedure.query(() => {
-    return "Hello, World!"
+    return "Hello, World from AWS!"
   }),
 })
 
