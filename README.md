@@ -12,9 +12,9 @@
 
 Run the project
 
-    git clone https://github.com/gnllucena/trcp-sst.git
+    git clone https://github.com/gnllucena/trpc-sst.git
 
-    cd trcp-sst
+    cd trpc-sst
 
     pnpm install
 
