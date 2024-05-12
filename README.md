@@ -45,9 +45,3 @@ The web application is a front-end application built with Vite and React. It is 
 #### Shared Configurations
 
 The shared configurations are located in the configuration directory. They include configurations for ESLint, Tailwind CSS, and TypeScript. These configurations are referenced in the pnpm-lock.yaml file and are used across the applications in the project.
-
-#### Building and Running the Project
-
-To build the project, run the build script in the root package.json file:
-
-To run the project in development mode, run the dev script in the root package.json file:
