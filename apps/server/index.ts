@@ -1,23 +1,29 @@
-import { initTRPC } from "@trpc/server"
-import {
-  APIGatewayEvent,
-  awsLambdaRequestHandler,
-  CreateAWSLambdaContextOptions,
-} from "@trpc/server/adapters/aws-lambda"
+import { awsLambdaRequestHandler } from "@trpc/server/adapters/aws-lambda"
 
-const t = initTRPC
-  .context<CreateAWSLambdaContextOptions<APIGatewayEvent>>()
-  .create()
-
-const router = t.router({
-  greet: t.procedure.query(() => {
-    return "Hello, World from AWS!"
-  }),
-})
-
-export type AppRouter = typeof router
+import { router } from "./src/lib/trpc"
 
 export const handler = awsLambdaRequestHandler({
   router: router,
   createContext: (opts) => opts,
+  onError({ error, ctx }) {
+    console.error("Error", error)
+  },
+  responseMeta({ data, ctx, errors, type }) {
+    return {
+      status: errors ? 400 : 200,
+      headers: {
+        "Access-Control-Allow-Origin": getAccessControlAllowOrigin("dev"),
+        // "Access-Control-Allow-Headers": "Origin, X-Requested-With, Content-Type, Accept, Authorization",
+        // "Access-Control-Allow-Methods": "OPTIONS,POST,GET",
+      },
+    }
+  },
 })
+
+function getAccessControlAllowOrigin(stage: string) {
+  if (stage === "prod") {
+    return "https://example.com"
+  } else {
+    return "http://localhost:5173"
+  }
+}
