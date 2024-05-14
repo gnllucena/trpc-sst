@@ -4,7 +4,9 @@ import { router } from "./src/lib/trpc"
 
 export const handler = awsLambdaRequestHandler({
   router: router,
-  createContext: (opts) => opts,
+  // createContext() {
+  //   return {}
+  // },
   onError({ error, ctx }) {
     console.error("Error", error)
   },

@@ -1,13 +1,8 @@
 import { initTRPC } from "@trpc/server"
-import {
-  APIGatewayEvent,
-  CreateAWSLambdaContextOptions,
-} from "@trpc/server/adapters/aws-lambda"
+import { CreateAWSLambdaContextOptions } from "@trpc/server/adapters/aws-lambda"
 import { z } from "zod"
 
-const t = initTRPC
-  .context<CreateAWSLambdaContextOptions<APIGatewayEvent>>()
-  .create()
+const t = initTRPC.context<CreateAWSLambdaContextOptions<{}>>().create()
 
 const GreetSchema = z.object({
   name: z.string(),
