@@ -1,6 +1,12 @@
+import { createLazyFileRoute } from "@tanstack/react-router"
+
 import { trpc } from "../lib/trpc"
 
-export function Page() {
+export const Route = createLazyFileRoute("/")({
+  component: Index,
+})
+
+function Index() {
   const { data } = trpc.greet.useQuery()
 
   return (

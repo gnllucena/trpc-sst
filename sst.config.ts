@@ -12,6 +12,9 @@ export default $config({
     const server = new sst.aws.Function("Server", {
       url: true,
       handler: "apps/server/index.handler",
+      environment: {
+        NODE_ENV: "production",
+      },
     })
 
     const web = new sst.aws.StaticSite("Web", {
@@ -21,7 +24,7 @@ export default $config({
         output: "dist",
       },
       environment: {
-        VITE_API_URL: server.url,
+        VITE_SERVER_URL: server.url,
       },
     })
 
